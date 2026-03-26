@@ -16,14 +16,14 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Galería de Arte | Cuadros Originales",
-  description: "Descubre y adquiere cuadros originales. Pinturas únicas al óleo, acuarela y acrílico. Envío a toda España.",
+  title: "Inma Álvarez | Arte Original",
+  description: "Descubre obras únicas creadas a mano que llenarán de vida y personalidad cada rincón de tu hogar.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es" className={`${playfair.variable} ${inter.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col bg-[#faf8f5]">
+      <body className="min-h-full flex flex-col bg-white">
         <PublicShell>{children}</PublicShell>
       </body>
     </html>

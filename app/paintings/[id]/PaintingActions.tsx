@@ -1,5 +1,7 @@
 "use client";
 import { useState } from "react";
+import { motion } from "framer-motion";
+import { ShoppingCart, Tag } from "lucide-react";
 import OfferModal from "@/components/OfferModal";
 
 interface Painting {
@@ -13,26 +15,41 @@ export default function PaintingActions({ painting }: { painting: Painting }) {
 
   return (
     <>
-      <div className="flex flex-col sm:flex-row gap-3">
-        {/* Comprar (Fase 2 - Stripe) */}
-        <button
+      <div className="space-y-3">
+        {/* Añadir al carrito (Fase 2) */}
+        <motion.button
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
           disabled
           title="Próximamente disponible"
-          className="flex-1 bg-stone-800 text-white py-3 text-sm font-semibold uppercase tracking-wider rounded hover:bg-stone-700 transition-colors disabled:opacity-40 disabled:cursor-not-allowed">
-          Comprar ahora · {Number(painting.price).toLocaleString("es-ES")} €
-        </button>
+          className="w-full bg-black text-white py-4 rounded-full font-semibold flex items-center justify-center gap-2 hover:bg-gray-800 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+        >
+          <ShoppingCart className="w-5 h-5" />
+          Añadir al Carrito · €{Number(painting.price).toLocaleString("es-ES")}
+        </motion.button>
 
-        {/* Hacer oferta */}
-        <button
-          onClick={() => setShowOffer(true)}
-          className="flex-1 border border-stone-800 text-stone-800 py-3 text-sm font-semibold uppercase tracking-wider rounded hover:bg-stone-50 transition-colors">
-          Hacer una oferta
-        </button>
+        <div className="grid grid-cols-2 gap-3">
+          {/* Comprar ahora (Fase 2) */}
+          <button
+            disabled
+            title="Próximamente disponible"
+            className="w-full border-2 border-black text-black py-4 rounded-full font-semibold hover:bg-black hover:text-white transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+          >
+            Comprar Ahora
+          </button>
+
+          {/* Proponer precio */}
+          <motion.button
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={() => setShowOffer(true)}
+            className="w-full border-2 border-purple-600 text-purple-600 py-4 rounded-full font-semibold hover:bg-purple-600 hover:text-white transition-colors flex items-center justify-center gap-2"
+          >
+            <Tag className="w-5 h-5" />
+            Proponer Precio
+          </motion.button>
+        </div>
       </div>
-
-      <p className="text-xs text-stone-400 mt-2">
-        ¿No te convence el precio? Puedes hacer una oferta por encima o por debajo.
-      </p>
 
       {showOffer && (
         <OfferModal
