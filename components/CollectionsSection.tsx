@@ -8,25 +8,25 @@ const collections = [
     title: "Abstracto Contemporáneo",
     description: "Expresiones libres de color y forma que desafían la percepción",
     color: "from-purple-500 to-pink-500",
-    category: "Abstracto",
+    slug: "abstracto-contemporaneo",
   },
   {
     title: "Retratos Expresivos",
     description: "Capturando la esencia y emoción de la figura humana",
     color: "from-blue-500 to-cyan-500",
-    category: "Retrato",
+    slug: "retratos-expresivos",
   },
   {
     title: "Paisajes Oníricos",
     description: "Naturaleza reimaginada con una paleta vibrante",
     color: "from-green-500 to-emerald-500",
-    category: "Paisaje",
+    slug: "paisajes-oniricos",
   },
   {
     title: "Floral & Naturaleza",
     description: "La belleza orgánica transformada en pintura",
     color: "from-rose-400 to-orange-400",
-    category: "Floral",
+    slug: "floral-naturaleza",
   },
 ];
 
@@ -59,7 +59,7 @@ export default function CollectionsSection() {
               whileHover={{ y: -8 }}
               className="group cursor-pointer"
             >
-              <Link href={`/?category=${col.category}`}>
+              <Link href={`/collections/${col.slug}`}>
                 <div className="relative h-80 rounded-2xl overflow-hidden shadow-lg">
                   <div className={`absolute inset-0 bg-gradient-to-br ${col.color}`} />
                   <div className="relative h-full p-8 flex flex-col justify-end text-white">
