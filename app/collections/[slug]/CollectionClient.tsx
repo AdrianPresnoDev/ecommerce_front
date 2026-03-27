@@ -3,6 +3,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { paintingUrl } from "@/lib/slugify";
 import {
   ArrowLeft,
   SlidersHorizontal,
@@ -234,7 +235,7 @@ export default function CollectionClient({ collection, paintings }: Props) {
               onMouseEnter={() => setHoveredId(painting.id)}
               onMouseLeave={() => setHoveredId(null)}
             >
-              <Link href={`/paintings/${painting.id}`}>
+              <Link href={paintingUrl(painting)}>
                 <div className="relative overflow-hidden rounded-2xl bg-white shadow-lg hover:shadow-2xl transition-shadow duration-300">
                   <div className="aspect-[3/4] relative">
                     {painting.imageUrls?.[0] ? (

@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { Heart, ShoppingCart } from "lucide-react";
 import { useState } from "react";
+import { paintingUrl } from "@/lib/slugify";
 
 interface Painting {
   id: string;
@@ -24,7 +25,7 @@ export default function PaintingCard({ painting }: { painting: Painting }) {
 
   return (
     <Link
-      href={`/paintings/${painting.id}`}
+      href={paintingUrl(painting)}
       className="painting-card group block"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}

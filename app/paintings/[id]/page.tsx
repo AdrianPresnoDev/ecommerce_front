@@ -1,6 +1,7 @@
 export const dynamic = 'force-dynamic';
 
 import { getPainting, getPaintings } from "@/lib/api";
+import { extractPaintingId, paintingUrl } from "@/lib/slugify";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -9,7 +10,8 @@ import PaintingActions from "./PaintingActions";
 import { Check, Truck, Award, ArrowLeft } from "lucide-react";
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
+  const { id: rawId } = await params;
+  const id = extractPaintingId(rawId);
   try {
     const p = await getPainting(id);
     return {
@@ -22,7 +24,8 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 }
 
 export default async function PaintingPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
+  const { id: rawId } = await params;
+  const id = extractPaintingId(rawId);
 
   let painting: any;
   try {
@@ -171,7 +174,7 @@ export default async function PaintingPage({ params }: { params: Promise<{ id: s
             <h2 className="font-[family-name:var(--font-playfair)] text-3xl mb-8">Obras Relacionadas</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {related.map((p: any) => (
-                <Link key={p.id} href={`/paintings/${p.id}`} className="group">
+                <Link key={p.id} href={paintingUrl(p)} className="group">
                   <div className="aspect-[3/4] rounded-xl overflow-hidden bg-gray-100 mb-4">
                     {p.imageUrls?.[0] ? (
                       <Image

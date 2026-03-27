@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Heart, ShoppingCart } from "lucide-react";
 import { useState } from "react";
 import Link from "next/link";
+import { paintingUrl } from "@/lib/slugify";
 import Image from "next/image";
 
 interface Painting {
@@ -56,7 +57,7 @@ export default function FeaturedGallery({ paintings }: { paintings: Painting[] }
                   onMouseEnter={() => setHoveredId(painting.id)}
                   onMouseLeave={() => setHoveredId(null)}
                 >
-                  <Link href={`/paintings/${painting.id}`}>
+                  <Link href={paintingUrl(painting)}>
                     <div className="relative overflow-hidden rounded-lg bg-white shadow-lg">
                       <div className="aspect-[3/4] relative">
                         {img ? (
