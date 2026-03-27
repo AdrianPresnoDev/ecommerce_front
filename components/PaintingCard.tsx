@@ -19,6 +19,7 @@ interface Painting {
 export default function PaintingCard({ painting }: { painting: Painting }) {
   const img = painting.imageUrls?.[0];
   const sold = painting.status === "sold";
+  const reserved = painting.status === "reserved";
   const [hovered, setHovered] = useState(false);
 
   return (
@@ -51,7 +52,7 @@ export default function PaintingCard({ painting }: { painting: Painting }) {
           {/* Hover overlay */}
           <motion.div
             initial={{ opacity: 0 }}
-            animate={{ opacity: hovered && !sold ? 1 : 0 }}
+            animate={{ opacity: hovered && !sold && !reserved ? 1 : 0 }}
             className="absolute inset-0 bg-black/40 flex items-center justify-center gap-4"
           >
             <motion.button
@@ -73,9 +74,16 @@ export default function PaintingCard({ painting }: { painting: Painting }) {
           </motion.div>
 
           {sold && (
-            <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-              <span className="bg-white/90 text-gray-700 text-xs font-semibold px-3 py-1 uppercase tracking-widest rounded-full">
+            <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+              <span className="bg-white/90 text-gray-800 text-xs font-bold px-4 py-1.5 uppercase tracking-widest rounded-full shadow">
                 Vendido
+              </span>
+            </div>
+          )}
+          {reserved && !sold && (
+            <div className="absolute inset-0 bg-amber-900/30 flex items-center justify-center">
+              <span className="bg-amber-500 text-white text-xs font-bold px-4 py-1.5 uppercase tracking-widest rounded-full shadow">
+                Reservado
               </span>
             </div>
           )}
@@ -87,7 +95,7 @@ export default function PaintingCard({ painting }: { painting: Painting }) {
             {painting.title}
           </h3>
           <p className="text-2xl">
-            {sold ? "—" : `€${Number(painting.price).toLocaleString("es-ES")}`}
+            {sold ? <span className="text-base text-gray-400">Vendido</span> : reserved ? <span className="text-base text-amber-600 font-medium">Reservado</span> : `€${Number(painting.price).toLocaleString("es-ES")}`}
           </p>
         </div>
       </div>

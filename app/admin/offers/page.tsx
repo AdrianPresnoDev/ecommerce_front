@@ -5,7 +5,7 @@ import { adminGetOffers, adminRespondOffer } from "@/lib/api";
 interface Offer {
   id: string;
   paintingId: string;
-  paintingTitle?: string;
+  painting?: { id: string; title: string; price: number };
   buyerName: string;
   buyerEmail: string;
   buyerPhone?: string;
@@ -200,15 +200,15 @@ function OfferCard({ offer, onRespond }: {
             <span className="text-xs text-stone-400">{date}</span>
           </div>
           <p className="font-medium text-stone-800 text-sm truncate">
-            {offer.paintingTitle || offer.paintingId}
+            {offer.painting?.title || offer.paintingId}
           </p>
           <div className="mt-1 flex items-center gap-3 text-sm flex-wrap">
             <span className="font-semibold text-stone-700">
               {Number(offer.offeredPrice).toLocaleString("es-ES")} €
             </span>
-            {offer.listedPrice && (
+            {offer.painting?.price && (
               <span className="text-stone-400 text-xs">
-                (precio: {Number(offer.listedPrice).toLocaleString("es-ES")} €)
+                (precio obra: {Number(offer.painting.price).toLocaleString("es-ES")} €)
               </span>
             )}
           </div>
