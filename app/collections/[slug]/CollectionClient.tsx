@@ -13,6 +13,8 @@ import {
   ChevronDown,
 } from "lucide-react";
 import { Collection } from "@/lib/collections";
+import ContactModal from "@/components/ContactModal";
+import CustomArtworkModal from "@/components/CustomArtworkModal";
 
 type SortOption = "featured" | "price-asc" | "price-desc" | "newest";
 type ViewMode = "grid-3" | "grid-4";
@@ -41,6 +43,8 @@ export default function CollectionClient({ collection, paintings }: Props) {
   const [priceMin, setPriceMin] = useState("");
   const [priceMax, setPriceMax] = useState("");
   const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const [showContact, setShowContact] = useState(false);
+  const [showCustomOrder, setShowCustomOrder] = useState(false);
 
   // Filter
   let filtered = paintings.filter((p) => p.status !== "sold");
@@ -337,23 +341,30 @@ export default function CollectionClient({ collection, paintings }: Props) {
               Inma estará encantada de crear algo único para ti.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <motion.a
-                href="/#contacto"
+              <motion.button
+                onClick={() => setShowCustomOrder(true)}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="bg-black text-white px-8 py-4 rounded-full font-semibold hover:bg-gray-800 transition-colors"
               >
                 Solicitar Obra Personalizada
-              </motion.a>
-              <motion.a
-                href="/#contacto"
+              </motion.button>
+              <motion.button
+                onClick={() => setShowContact(true)}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="border-2 border-black text-black px-8 py-4 rounded-full font-semibold hover:bg-black hover:text-white transition-colors"
               >
                 Contactar a Inma
-              </motion.a>
+              </motion.button>
             </div>
+
+            <ContactModal isOpen={showContact} onClose={() => setShowContact(false)} />
+            <CustomArtworkModal
+              isOpen={showCustomOrder}
+              onClose={() => setShowCustomOrder(false)}
+              collectionName={collection.category}
+            />
           </div>
         </motion.div>
       </div>
