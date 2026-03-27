@@ -1,7 +1,7 @@
 export const dynamic = 'force-dynamic';
 
 import { getPainting, getPaintings } from "@/lib/api";
-import { extractPaintingId, paintingUrl } from "@/lib/slugify";
+import { paintingUrl } from "@/lib/slugify";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -10,8 +10,7 @@ import PaintingActions from "./PaintingActions";
 import { Check, Truck, Award, ArrowLeft } from "lucide-react";
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
-  const { id: rawId } = await params;
-  const id = extractPaintingId(rawId);
+  const { id } = await params;
   try {
     const p = await getPainting(id);
     return {
@@ -24,8 +23,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 }
 
 export default async function PaintingPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id: rawId } = await params;
-  const id = extractPaintingId(rawId);
+  const { id } = await params;
 
   let painting: any;
   try {
