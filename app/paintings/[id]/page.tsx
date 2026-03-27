@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { getPainting, getPaintings } from "@/lib/api";
 import { notFound } from "next/navigation";
 import Link from "next/link";

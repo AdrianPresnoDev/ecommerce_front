@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { getPaintings } from "@/lib/api";
 import HeroSection from "@/components/HeroSection";
 import FeaturedGallery from "@/components/FeaturedGallery";
