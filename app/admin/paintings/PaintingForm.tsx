@@ -111,8 +111,8 @@ export default function PaintingForm({ initial }: { initial?: Partial<PaintingDa
         router.push("/admin/paintings");
       } else {
         const result = await adminCreatePainting(getKey(), payload);
-        // After create, redirect to edit so user can upload images
-        router.push(`/admin/paintings/${result.painting.id}/edit`);
+        const newId = result?.painting?.id ?? result?.id ?? result;
+        router.push(`/admin/paintings/${newId}/edit`);
       }
     } catch (e: any) {
       setError(e.message);
