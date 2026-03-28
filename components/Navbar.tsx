@@ -23,7 +23,7 @@ export default function Navbar() {
             <a href="/#galeria" className="hover:text-gray-900 transition-colors">Galería</a>
             <a href="/#sobre" className="hover:text-gray-900 transition-colors">Sobre Mí</a>
             <a href="/#colecciones" className="hover:text-gray-900 transition-colors">Colecciones</a>
-            <a href="/#contacto" className="hover:text-gray-900 transition-colors">Contacto</a>
+            <Link href="/contact" className="hover:text-gray-900 transition-colors">Contacto</Link>
           </div>
 
           {/* Right side */}
@@ -46,7 +46,7 @@ export default function Navbar() {
             <a href="/#galeria" onClick={() => setOpen(false)}>Galería</a>
             <a href="/#sobre" onClick={() => setOpen(false)}>Sobre Mí</a>
             <a href="/#colecciones" onClick={() => setOpen(false)}>Colecciones</a>
-            <a href="/#contacto" onClick={() => setOpen(false)}>Contacto</a>
+            <Link href="/contact" onClick={() => setOpen(false)}>Contacto</Link>
           </div>
         )}
       </nav>
