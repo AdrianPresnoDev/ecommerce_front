@@ -1,5 +1,6 @@
 import { getOfferStatus } from "@/lib/api";
 import Link from "next/link";
+import PayOfferButton from "./PayOfferButton";
 
 export const dynamic = "force-dynamic";
 
@@ -61,7 +62,7 @@ export default async function OfferStatusPage({ params }: { params: Promise<{ to
               ¡Enhorabuena! La artista ha aceptado tu oferta.
               {offer.sellerNote && ` "${offer.sellerNote}"`}
             </p>
-            <p className="text-xs text-stone-400 mt-2">Recibirás un email con los pasos para completar la compra.</p>
+            <PayOfferButton offerToken={token} />
           </div>
         )}
 
