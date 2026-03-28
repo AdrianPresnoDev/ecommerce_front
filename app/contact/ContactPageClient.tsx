@@ -34,7 +34,7 @@ import Image from "next/image";
 const STUDIO_IMG = "https://images.unsplash.com/photo-1771440047988-766001f543a6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080";
 
 const contactInfo = [
-  { icon: Mail,  label: "Email",   value: "inma@inmaalvarez.com",     link: "mailto:inma@inmaalvarez.com" },
+  { icon: Mail,  label: "Email",   value: "inmaalsa@gmail.com",     link: "mailto:inmaalsa@gmail.com" },
   { icon: Phone, label: "Teléfono", value: "+34 600 000 000",          link: "tel:+34600000000" },
   { icon: MapPin, label: "Estudio", value: "Madrid, España",           link: "https://maps.google.com/?q=Madrid,España" },
   { icon: Clock, label: "Horario",  value: "Lun – Vie: 10:00 – 18:00", link: null },
