@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import { Award, Palette, Users } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 const stats = [
   { icon: Palette, value: "500+", label: "Obras Creadas" },
@@ -78,13 +79,15 @@ export default function AboutSection() {
               ))}
             </div>
 
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="border-2 border-black text-black px-8 py-3 rounded-full hover:bg-black hover:text-white transition-colors font-semibold"
-            >
-              Conoce Mi Historia
-            </motion.button>
+            <Link href="/about">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="border-2 border-black text-black px-8 py-3 rounded-full hover:bg-black hover:text-white transition-colors font-semibold"
+              >
+                Conoce Mi Historia
+              </motion.button>
+            </Link>
           </motion.div>
         </div>
       </div>

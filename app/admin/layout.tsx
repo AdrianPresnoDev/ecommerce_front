@@ -58,6 +58,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               >
                 Colecciones
               </Link>
+              <Link
+                href="/admin/about"
+                className={`hover:text-stone-300 transition-colors ${
+                  pathname.startsWith("/admin/about") ? "text-white font-medium" : "text-stone-400"
+                }`}
+              >
+                Sobre Mí
+              </Link>
             </nav>
           </div>
           <div className="flex items-center gap-4">
