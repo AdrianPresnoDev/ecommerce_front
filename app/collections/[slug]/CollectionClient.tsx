@@ -13,7 +13,6 @@ import {
   ShoppingCart,
   ChevronDown,
 } from "lucide-react";
-import { Collection } from "@/lib/collections";
 import ContactModal from "@/components/ContactModal";
 import CustomArtworkModal from "@/components/CustomArtworkModal";
 
@@ -22,6 +21,7 @@ type ViewMode = "grid-3" | "grid-4";
 
 interface Painting {
   id: string;
+  slug?: string;
   title: string;
   price: number;
   imageUrls: string[];
@@ -30,6 +30,16 @@ interface Painting {
   category?: string;
   status: string;
   featured?: boolean;
+}
+
+interface Collection {
+  id: string;
+  slug: string;
+  title: string;
+  description?: string;
+  longDescription?: string;
+  color?: string;
+  heroImageUrl?: string;
 }
 
 interface Props {
@@ -71,17 +81,19 @@ export default function CollectionClient({ collection, paintings }: Props) {
     <div className="min-h-screen pt-20">
       {/* Hero */}
       <div
-        className={`relative h-[60vh] flex items-center justify-center overflow-hidden bg-gradient-to-br ${collection.color}`}
+        className={`relative h-[60vh] flex items-center justify-center overflow-hidden bg-gradient-to-br ${collection.color || "from-stone-800 to-stone-600"}`}
       >
-        <div className="absolute inset-0 opacity-20">
-          <Image
-            src={collection.heroImage}
-            alt={collection.title}
-            fill
-            className="object-cover"
-            priority
-          />
-        </div>
+        {collection.heroImageUrl && (
+          <div className="absolute inset-0 opacity-20">
+            <Image
+              src={collection.heroImageUrl}
+              alt={collection.title}
+              fill
+              className="object-cover"
+              priority
+            />
+          </div>
+        )}
 
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
           <motion.div
@@ -364,7 +376,7 @@ export default function CollectionClient({ collection, paintings }: Props) {
             <CustomArtworkModal
               isOpen={showCustomOrder}
               onClose={() => setShowCustomOrder(false)}
-              collectionName={collection.category}
+              collectionName={collection.title}
             />
           </div>
         </motion.div>

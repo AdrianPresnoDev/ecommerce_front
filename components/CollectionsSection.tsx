@@ -2,35 +2,20 @@
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
-const collections = [
-  {
-    title: "Abstracto Contemporáneo",
-    description: "Expresiones libres de color y forma que desafían la percepción",
-    color: "from-purple-500 to-pink-500",
-    slug: "abstracto-contemporaneo",
-  },
-  {
-    title: "Retratos Expresivos",
-    description: "Capturando la esencia y emoción de la figura humana",
-    color: "from-blue-500 to-cyan-500",
-    slug: "retratos-expresivos",
-  },
-  {
-    title: "Paisajes Oníricos",
-    description: "Naturaleza reimaginada con una paleta vibrante",
-    color: "from-green-500 to-emerald-500",
-    slug: "paisajes-oniricos",
-  },
-  {
-    title: "Floral & Naturaleza",
-    description: "La belleza orgánica transformada en pintura",
-    color: "from-rose-400 to-orange-400",
-    slug: "floral-naturaleza",
-  },
-];
+interface Collection {
+  id: string;
+  title: string;
+  slug: string;
+  description?: string;
+  color?: string;
+  heroImageUrl?: string;
+}
 
-export default function CollectionsSection() {
+export default function CollectionsSection({ collections }: { collections: Collection[] }) {
+  if (collections.length === 0) return null;
+
   return (
     <section id="colecciones" className="py-20 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -51,7 +36,7 @@ export default function CollectionsSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {collections.map((col, index) => (
             <motion.div
-              key={index}
+              key={col.id}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -61,11 +46,14 @@ export default function CollectionsSection() {
             >
               <Link href={`/collections/${col.slug}`}>
                 <div className="relative h-80 rounded-2xl overflow-hidden shadow-lg">
-                  <div className={`absolute inset-0 bg-gradient-to-br ${col.color}`} />
+                  {col.heroImageUrl ? (
+                    <Image src={col.heroImageUrl} alt={col.title} fill className="object-cover" />
+                  ) : null}
+                  <div className={`absolute inset-0 bg-gradient-to-br ${col.color || "from-stone-800 to-stone-600"} ${col.heroImageUrl ? "opacity-70" : ""}`} />
                   <div className="relative h-full p-8 flex flex-col justify-end text-white">
                     <div className="space-y-2 mb-4">
                       <h3 className="font-[family-name:var(--font-playfair)] text-3xl">{col.title}</h3>
-                      <p className="text-lg opacity-90">{col.description}</p>
+                      {col.description && <p className="text-lg opacity-90">{col.description}</p>}
                     </div>
                     <div className="flex items-center gap-2 text-white group-hover:gap-4 transition-all">
                       <span className="font-medium">Explorar colección</span>
