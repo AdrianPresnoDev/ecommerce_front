@@ -33,7 +33,7 @@ export default function CollectionsSection({ collections }: { collections: Colle
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
           {collections.map((col, index) => (
             <motion.div
               key={col.id}
@@ -66,6 +66,21 @@ export default function CollectionsSection({ collections }: { collections: Colle
             </motion.div>
           ))}
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center"
+        >
+          <Link
+            href="/collections"
+            className="inline-flex items-center gap-2 bg-gray-900 text-white px-8 py-4 rounded-full font-semibold hover:bg-gray-700 transition-colors"
+          >
+            Explorar todas las colecciones
+            <ArrowRight className="w-5 h-5" />
+          </Link>
+        </motion.div>
       </div>
     </section>
   );
