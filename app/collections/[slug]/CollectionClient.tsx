@@ -57,8 +57,11 @@ export default function CollectionClient({ collection, paintings }: Props) {
   const [showContact, setShowContact] = useState(false);
   const [showCustomOrder, setShowCustomOrder] = useState(false);
 
+  const [showReserved, setShowReserved] = useState(true);
+
   // Filter
   let filtered = paintings.filter((p) => p.status !== "sold");
+  if (!showReserved) filtered = filtered.filter((p) => p.status !== "reserved");
   if (priceMin) filtered = filtered.filter((p) => p.price >= Number(priceMin));
   if (priceMax) filtered = filtered.filter((p) => p.price <= Number(priceMax));
 
@@ -203,27 +206,44 @@ export default function CollectionClient({ collection, paintings }: Props) {
             animate={{ opacity: 1, height: "auto" }}
             className="mb-12 p-6 bg-gray-50 rounded-2xl overflow-hidden"
           >
-            <h3 className="font-semibold mb-4">Filtrar por precio</h3>
-            <div className="flex gap-4 max-w-sm">
-              <div className="flex-1">
-                <label className="block text-sm font-medium mb-1 text-gray-600">Mínimo (€)</label>
-                <input
-                  type="number"
-                  placeholder="0"
-                  value={priceMin}
-                  onChange={(e) => setPriceMin(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-black"
-                />
+            <h3 className="font-semibold mb-4">Filtrar por:</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label className="block text-sm font-semibold mb-2">Rango de precio</label>
+                <div className="flex gap-2">
+                  <input
+                    type="number"
+                    placeholder="Mín (€)"
+                    value={priceMin}
+                    onChange={(e) => setPriceMin(e.target.value)}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-black"
+                  />
+                  <input
+                    type="number"
+                    placeholder="Máx (€)"
+                    value={priceMax}
+                    onChange={(e) => setPriceMax(e.target.value)}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-black"
+                  />
+                </div>
               </div>
-              <div className="flex-1">
-                <label className="block text-sm font-medium mb-1 text-gray-600">Máximo (€)</label>
-                <input
-                  type="number"
-                  placeholder="Sin límite"
-                  value={priceMax}
-                  onChange={(e) => setPriceMax(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-black"
-                />
+              <div>
+                <label className="block text-sm font-semibold mb-2">Disponibilidad</label>
+                <div className="space-y-2">
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input type="checkbox" className="rounded" defaultChecked readOnly />
+                    <span className="text-sm">Disponible ahora</span>
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      className="rounded"
+                      checked={showReserved}
+                      onChange={(e) => setShowReserved(e.target.checked)}
+                    />
+                    <span className="text-sm">Reservadas</span>
+                  </label>
+                </div>
               </div>
             </div>
           </motion.div>
