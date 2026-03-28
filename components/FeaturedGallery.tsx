@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import { Heart, ShoppingCart } from "lucide-react";
+import { ShoppingCart } from "lucide-react";
 import { useState } from "react";
 import Link from "next/link";
 import { paintingUrl } from "@/lib/slugify";
@@ -85,14 +85,6 @@ export default function FeaturedGallery({ paintings }: { paintings: Painting[] }
                           animate={{ opacity: hoveredId === painting.id && !sold && !reserved ? 1 : 0 }}
                           className="absolute inset-0 bg-black/40 flex items-center justify-center gap-4"
                         >
-                          <motion.button
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.9 }}
-                            onClick={(e) => e.preventDefault()}
-                            className="bg-white p-3 rounded-full hover:bg-gray-100 transition-colors"
-                          >
-                            <Heart className="w-5 h-5" />
-                          </motion.button>
                           <motion.button
                             whileHover={{ scale: 1.1 }}
                             whileTap={{ scale: 0.9 }}

@@ -9,7 +9,6 @@ import {
   SlidersHorizontal,
   Grid3x3,
   Grid2x2,
-  Heart,
   ShoppingCart,
   ChevronDown,
 } from "lucide-react";
@@ -295,14 +294,6 @@ export default function CollectionClient({ collection, paintings }: Props) {
                       className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent flex flex-col justify-end p-6"
                     >
                       <div className="flex gap-2 mb-4">
-                        <motion.button
-                          whileHover={{ scale: 1.1 }}
-                          whileTap={{ scale: 0.9 }}
-                          className="bg-white p-3 rounded-full hover:bg-gray-100 transition-colors"
-                          onClick={(e) => e.preventDefault()}
-                        >
-                          <Heart className="w-5 h-5" />
-                        </motion.button>
                         <motion.button
                           whileHover={{ scale: 1.1 }}
                           whileTap={{ scale: 0.9 }}
