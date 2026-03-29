@@ -20,9 +20,9 @@ export default function Navbar() {
 
           {/* Desktop nav */}
           <div className="hidden md:flex items-center gap-8 text-sm text-gray-700">
-            <a href="/#galeria" className="hover:text-gray-900 transition-colors">Galería</a>
-            <a href="/#sobre" className="hover:text-gray-900 transition-colors">Sobre Mí</a>
-            <a href="/#colecciones" className="hover:text-gray-900 transition-colors">Colecciones</a>
+            <Link href="/paintings" className="hover:text-gray-900 transition-colors">Galería</Link>
+            <Link href="/about" className="hover:text-gray-900 transition-colors">Sobre Mí</Link>
+            <Link href="/collections" className="hover:text-gray-900 transition-colors">Colecciones</Link>
             <Link href="/contact" className="hover:text-gray-900 transition-colors">Contacto</Link>
           </div>
 
@@ -43,9 +43,9 @@ export default function Navbar() {
         {/* Mobile menu */}
         {open && (
           <div className="md:hidden border-t border-gray-100 py-4 flex flex-col gap-4 text-sm text-gray-700">
-            <a href="/#galeria" onClick={() => setOpen(false)}>Galería</a>
-            <a href="/#sobre" onClick={() => setOpen(false)}>Sobre Mí</a>
-            <a href="/#colecciones" onClick={() => setOpen(false)}>Colecciones</a>
+            <Link href="/paintings" onClick={() => setOpen(false)}>Galería</Link>
+            <Link href="/about" onClick={() => setOpen(false)}>Sobre Mí</Link>
+            <Link href="/collections" onClick={() => setOpen(false)}>Colecciones</Link>
             <Link href="/contact" onClick={() => setOpen(false)}>Contacto</Link>
           </div>
         )}
