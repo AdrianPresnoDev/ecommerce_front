@@ -11,7 +11,8 @@ export const metadata = {
 export default async function AllArtworksPage() {
   let paintings: any[] = [];
   try {
-    paintings = await getPaintings({ limit: "500" });
+    const res = await getPaintings({ limit: "500" });
+    paintings = res?.paintings ?? res ?? [];
   } catch {}
 
   return <AllArtworksClient paintings={paintings} />;
