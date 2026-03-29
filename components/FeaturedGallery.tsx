@@ -131,14 +131,11 @@ export default function FeaturedGallery({ paintings }: { paintings: Painting[] }
         )}
 
         <div className="text-center mt-12">
-          <Link href="/paintings">
-            <motion.span
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="inline-block bg-black text-white px-8 py-4 rounded-full hover:bg-gray-800 transition-colors font-semibold"
-            >
-              Ver Toda la Colección
-            </motion.span>
+          <Link
+            href="/paintings"
+            className="inline-block bg-black text-white px-8 py-4 rounded-full hover:bg-gray-800 hover:scale-105 active:scale-95 transition-all font-semibold"
+          >
+            Ver Toda la Colección
           </Link>
         </div>
       </div>
