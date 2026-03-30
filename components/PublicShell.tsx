@@ -61,7 +61,7 @@ export default function PublicShell({ children }: { children: React.ReactNode })
                 </li>
                 <li className="flex items-center gap-2">
                   <Phone className="w-4 h-4 flex-shrink-0" />
-                  <a href="tel:+34600000000" className="hover:text-white transition-colors">+34 600 000 000</a>
+                  <a href="tel:+34639928647" className="hover:text-white transition-colors">+34 639 928 647</a>
                 </li>
                 <li className="flex items-start gap-2">
                   <MapPin className="w-4 h-4 flex-shrink-0 mt-0.5" />
