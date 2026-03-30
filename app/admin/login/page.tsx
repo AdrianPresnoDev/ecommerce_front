@@ -3,15 +3,34 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function AdminLogin() {
-  const [key, setKey] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!key.trim()) { setError("Introduce la clave de administrador"); return; }
-    localStorage.setItem("adminApiKey", key.trim());
-    router.push("/admin/paintings");
+    if (!email.trim() || !password.trim()) {
+      setError("Introduce email y contraseña");
+      return;
+    }
+    setLoading(true);
+    setError("");
+    try {
+      const res = await fetch("/admin/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email.trim(), password }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Error de autenticación");
+      localStorage.setItem("adminApiKey", data.apiKey);
+      router.push("/admin/paintings");
+    } catch (err: any) {
+      setError(err.message || "Credenciales incorrectas");
+      setLoading(false);
+    }
   }
 
   return (
@@ -25,23 +44,36 @@ export default function AdminLogin() {
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div>
             <label className="text-xs text-stone-500 mb-1 block uppercase tracking-wide">
-              Clave de administrador
+              Email
+            </label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full border border-stone-200 rounded px-3 py-2.5 text-sm focus:outline-none focus:border-stone-400"
+              placeholder="tu@email.com"
+              autoFocus
+            />
+          </div>
+          <div>
+            <label className="text-xs text-stone-500 mb-1 block uppercase tracking-wide">
+              Contraseña
             </label>
             <input
               type="password"
-              value={key}
-              onChange={e => setKey(e.target.value)}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               className="w-full border border-stone-200 rounded px-3 py-2.5 text-sm focus:outline-none focus:border-stone-400"
               placeholder="••••••••"
-              autoFocus
             />
           </div>
           {error && <p className="text-sm text-red-500">{error}</p>}
           <button
             type="submit"
-            className="w-full bg-stone-800 text-white py-2.5 text-sm font-semibold uppercase tracking-wider rounded hover:bg-stone-700 transition-colors"
+            disabled={loading}
+            className="w-full bg-stone-800 text-white py-2.5 text-sm font-semibold uppercase tracking-wider rounded hover:bg-stone-700 transition-colors disabled:opacity-50"
           >
-            Entrar
+            {loading ? "Entrando..." : "Entrar"}
           </button>
         </form>
       </div>
