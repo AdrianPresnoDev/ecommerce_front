@@ -57,7 +57,7 @@ export default function PublicShell({ children }: { children: React.ReactNode })
               <ul className="space-y-3 text-sm">
                 <li className="flex items-center gap-2">
                   <Mail className="w-4 h-4 flex-shrink-0" />
-                  <a href="mailto:inma@inmaalvarez.com" className="hover:text-white transition-colors">inma@inmaalvarez.com</a>
+                  <a href="mailto:inmaalsa@gmail.com" className="hover:text-white transition-colors">inmaalsa@gmail.com</a>
                 </li>
                 <li className="flex items-center gap-2">
                   <Phone className="w-4 h-4 flex-shrink-0" />
@@ -71,7 +71,7 @@ export default function PublicShell({ children }: { children: React.ReactNode })
             </div>
           </div>
           <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
-            <p>© {new Date().getFullYear()} Inma Álvarez. Todos los derechos reservados.</p>
+            <p>© {new Date().getFullYear()} Altamira Interactive. Todos los derechos reservados.</p>
             <div className="flex gap-6">
               <a href="#" className="hover:text-white transition-colors">Política de Privacidad</a>
               <a href="#" className="hover:text-white transition-colors">Términos y Condiciones</a>
