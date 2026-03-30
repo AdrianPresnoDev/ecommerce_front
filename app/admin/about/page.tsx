@@ -18,7 +18,9 @@ export default function AdminAboutPage() {
 
   // Story
   const [storyTitle, setStoryTitle] = useState("");
+  const [storyPhotos, setStoryPhotos] = useState(["", "", "", ""]);
   const [paragraphs, setParagraphs] = useState(["", "", "", ""]);
+  const storyFileRefs = [useRef<HTMLInputElement>(null), useRef<HTMLInputElement>(null), useRef<HTMLInputElement>(null), useRef<HTMLInputElement>(null)];
 
   // Values
   const [values, setValues] = useState([
@@ -39,6 +41,7 @@ export default function AdminAboutPage() {
       setHero(data.hero || hero);
       setQuote(data.quote || "");
       setStoryTitle(data.story?.title || "");
+      setStoryPhotos(data.story?.photos || ["", "", "", ""]);
       setParagraphs(data.story?.paragraphs || ["", "", "", ""]);
       setValues(data.values || values);
       setMilestones(data.milestones || []);
@@ -66,7 +69,7 @@ export default function AdminAboutPage() {
       await adminUpdateAbout(getKey(), {
         hero,
         quote,
-        story: { title: storyTitle, paragraphs },
+        story: { title: storyTitle, photos: storyPhotos, paragraphs },
         values,
         milestones,
         exhibitions,
@@ -149,6 +152,34 @@ export default function AdminAboutPage() {
             <label className="text-xs font-semibold uppercase tracking-wide text-stone-500 block mb-1">Título de la sección</label>
             <input value={storyTitle} onChange={e => setStoryTitle(e.target.value)} className="w-full border border-stone-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-stone-400" />
           </div>
+
+          <div>
+            <label className="text-xs font-semibold uppercase tracking-wide text-stone-500 block mb-2">Fotos de la historia (4 imágenes)</label>
+            <div className="grid grid-cols-2 gap-4">
+              {storyPhotos.map((photo, i) => (
+                <div key={i} className="space-y-2">
+                  <div className="relative w-full aspect-square rounded-lg overflow-hidden border border-stone-200 bg-stone-100">
+                    {photo ? <Image src={photo} alt={`Foto ${i + 1}`} fill className="object-cover" /> : <div className="w-full h-full flex items-center justify-center text-stone-400 text-sm">Foto {i + 1}</div>}
+                  </div>
+                  <input ref={storyFileRefs[i]} type="file" accept="image/*" className="hidden" onChange={async (e) => {
+                    const file = e.target.files?.[0];
+                    if (!file) return;
+                    setUploading(true);
+                    try {
+                      const { uploadUrl, imageUrl } = await adminGetAboutImageUploadUrl(getKey(), file.type);
+                      await fetch(uploadUrl, { method: "PUT", body: file, headers: { "Content-Type": file.type } });
+                      const arr = [...storyPhotos]; arr[i] = imageUrl; setStoryPhotos(arr);
+                    } catch (e: any) { setError("Error subiendo imagen: " + e.message); }
+                    finally { setUploading(false); }
+                  }} />
+                  <button type="button" onClick={() => storyFileRefs[i].current?.click()} disabled={uploading} className="w-full text-xs border border-stone-300 px-2 py-1.5 rounded-lg hover:bg-stone-50 transition-colors disabled:opacity-50">
+                    {photo ? "Cambiar" : "Subir"}
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+
           {paragraphs.map((p, i) => (
             <div key={i}>
               <label className="text-xs font-semibold uppercase tracking-wide text-stone-500 block mb-1">Párrafo {i + 1}</label>

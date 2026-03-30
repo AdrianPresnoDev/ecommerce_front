@@ -20,6 +20,7 @@ const DEFAULT: any = {
   quote: "El arte no es solo lo que ves, sino lo que haces sentir a los demás. Cada pincelada es un puente entre mi alma y el mundo",
   story: {
     title: "Mi Viaje Creativo",
+    photos: ["", "", "", ""],
     paragraphs: [
       "Desde niña, los colores han sido mi lenguaje...",
       "Estudié Bellas Artes en Madrid...",
@@ -60,6 +61,7 @@ export default function AboutClient({ content }: { content: any }) {
   const exhibitions = c.exhibitions || DEFAULT.exhibitions;
   const story = c.story || DEFAULT.story;
   const paragraphs = story.paragraphs || DEFAULT.story.paragraphs;
+  const storyPhotos = story.photos || DEFAULT.story.photos || [];
 
   return (
     <div className="min-h-screen pt-20">
@@ -125,14 +127,18 @@ export default function AboutClient({ content }: { content: any }) {
               <div className="grid grid-cols-2 gap-6">
                 <div className="space-y-6">
                   <div className="relative aspect-square rounded-2xl overflow-hidden shadow-xl bg-stone-200">
-                    {hero.imageUrl && <Image src={hero.imageUrl} alt="Proceso creativo" fill className="object-cover hover:scale-110 transition-transform duration-500" sizes="25vw" />}
+                    {(storyPhotos[0] || hero.imageUrl) && <Image src={storyPhotos[0] || hero.imageUrl} alt="Proceso creativo" fill className="object-cover hover:scale-110 transition-transform duration-500" sizes="25vw" />}
                   </div>
-                  <div className="aspect-[4/5] rounded-2xl overflow-hidden shadow-xl bg-stone-200" />
+                  <div className="relative aspect-[4/5] rounded-2xl overflow-hidden shadow-xl bg-stone-200">
+                    {storyPhotos[1] && <Image src={storyPhotos[1]} alt="En el estudio" fill className="object-cover hover:scale-110 transition-transform duration-500" sizes="25vw" />}
+                  </div>
                 </div>
                 <div className="space-y-6 pt-12">
-                  <div className="aspect-[4/5] rounded-2xl overflow-hidden shadow-xl bg-stone-200" />
+                  <div className="relative aspect-[4/5] rounded-2xl overflow-hidden shadow-xl bg-stone-200">
+                    {storyPhotos[2] && <Image src={storyPhotos[2]} alt="Obra en progreso" fill className="object-cover hover:scale-110 transition-transform duration-500" sizes="25vw" />}
+                  </div>
                   <div className="relative aspect-square rounded-2xl overflow-hidden shadow-xl bg-stone-200">
-                    {hero.imageUrl && <Image src={hero.imageUrl} alt="Estudio" fill className="object-cover hover:scale-110 transition-transform duration-500" sizes="25vw" />}
+                    {(storyPhotos[3] || hero.imageUrl) && <Image src={storyPhotos[3] || hero.imageUrl} alt="Estudio" fill className="object-cover hover:scale-110 transition-transform duration-500" sizes="25vw" />}
                   </div>
                 </div>
               </div>
